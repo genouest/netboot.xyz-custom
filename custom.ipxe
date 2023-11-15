@@ -14,6 +14,7 @@ menu Linux Installers - Current Arch [ ${arch} ]
 item --gap Linux Distros:
 item debian12 ${space} Debian12
 item debian11 ${space} Debian11
+item debian11-firmwares ${space} Debian11 with firmwares
 item cluster ${space} Cluster Centos7
 item efi-debian12 ${space} EFI Debian12
 item efi-debian11 ${space} EFI Debian11
@@ -66,8 +67,8 @@ initrd ${base-url}/initrd.gz
 initrd ${firmwares}
 imgargs linux auto=true url=${preseed-url} hostname=unassigned-hostname domain=unassigned-domain
 boot
-
 goto custom
+
 :efi-debian11
 imgfree
 echo Booting Debian Bullseye EFI installer...
