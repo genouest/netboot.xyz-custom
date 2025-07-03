@@ -82,7 +82,32 @@ imgargs linux auto=true url=${preseed-url} hostname=unassigned-hostname domain=u
 boot
 goto custom
 
-:cluster
+## Cluster
+
+:cluster-debian12
+imgfree
+echo Booting Debian bookworm installer..
+set base-url http://deb.debian.org/debian/dists/bookworm/main/installer-amd64/current/images/netboot/debian-installer/amd64
+set preseed-url ${pxe_url}/cluster/debian12/preseed.cfg
+kernel ${base-url}/linux
+initrd ${base-url}/initrd.gz
+imgargs linux auto=true url=${preseed-url} hostname=unassigned-hostname domain=unassigned-domain
+boot
+goto custom
+
+:cluster-debian12-efi
+imgfree
+echo Booting Debian bookworm EFI installer...
+set base-url http://deb.debian.org/debian/dists/bookworm/main/installer-amd64/current/images/netboot/debian-installer/amd64
+set preseed-url ${pxe_url}/cluster/debian12/efi/preseed.cfg
+kernel ${base-url}/linux
+initrd ${base-url}/initrd.gz
+imgargs linux auto=true url=${preseed-url} hostname=unassigned-hostname domain=unassigned-domain
+boot
+goto custom
+
+
+:cluster-centos7
 imgfree
 echo Booting Cluster Centos7
 set base https://vault.centos.org/7.9.2009/os/x86_64
@@ -91,6 +116,8 @@ kernel ${centos7_url}/vmlinuz inst.repo=${base} ${params} initrd=initrd.img
 initrd ${centos7_url}/initrd.img
 boot 
 goto custom
+
+## End Cluster
 
 :efi-centos8-dl360
 imgfree
