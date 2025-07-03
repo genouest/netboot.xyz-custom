@@ -12,6 +12,8 @@ set centos7_url ${pxe_url}/centos/images/7.9/
 set centos8_url ${pxe_url}/centos/images/8.3/
 menu Linux Installers - Current Arch [ ${arch} ]
 item --gap Linux Distros:
+item cluster-debian12 ${space} Cluster Debian12
+item cluster-debian12-efi ${space} Cluster Debian12 EFI
 item debian12 ${space} Debian12
 item debian11 ${space} Debian11
 item debian11-firmwares ${space} Debian11 with firmwares
