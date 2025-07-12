@@ -13,7 +13,7 @@ set centos8_url ${pxe_url}/centos/images/8.3/
 
 menu Linux Installers - Current Arch [ ${arch} ]
 item --gap Linux Distributions
-item 1_debian12               Debian 12 (standard)
+item 1_debian12               Debian 12 (VM)
 item 2_cluster-debian12-sda  Cluster Debian 12 (sda)
 item 3_cluster-debian12-sdb  Cluster Debian 12 (sdb)
 item 4_efi-debian12          EFI Debian 12
