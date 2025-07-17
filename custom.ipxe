@@ -12,12 +12,14 @@ set centos7_url ${pxe_url}/centos/images/7.9/
 set centos8_url ${pxe_url}/centos/images/8.3/
 
 menu Linux Installers - Current Arch [ ${arch} ]
-item --gap Linux Distributions
+item --gap Bios Installers
 item 1_debian12               Debian 12 (VM)
 item 2_cluster-debian12-sda  Cluster Debian 12 (sda)
 item 3_cluster-debian12-sdb  Cluster Debian 12 (sdb)
-item 4_efi-debian12          EFI Debian 12
-item 5_efi-centos8-dl360     EFI CentOS 8 DL360 Cloud
+item --gap EFI Installers
+item 4_efi-debian12          EFI Debian 12 (VM)
+item 5_cluster-debian12-sda-efi  Cluster Debian 12 EFI (sda)
+item 6_efi-centos8-dl360     EFI CentOS 8 DL360 Cloud
 item --gap
 item shell                   iPXE Shell
 item reboot                  Reboot
@@ -66,7 +68,17 @@ initrd ${base-url}/initrd.gz
 imgargs linux auto=true url=${preseed-url} hostname=unassigned-hostname domain=unassigned-domain
 boot
 
-:5_efi-centos8-dl360
+:5_cluster-debian12-sda-efi
+imgfree
+echo Booting Cluster Debian12 on sda...
+set base-url http://deb.debian.org/debian/dists/bookworm/main/installer-amd64/current/images/netboot/debian-installer/amd64
+set preseed-url ${pxe_url}/cluster/debian12/efi/preseed_sda.cfg
+kernel ${base-url}/linux
+initrd ${base-url}/initrd.gz
+imgargs linux auto=true url=${preseed-url} hostname=unassigned-hostname domain=unassigned-domain
+boot
+
+:6_efi-centos8-dl360
 imgfree
 echo Booting CentOS 8.3 EFI installer for DL360...
 set base http://linuxsoft.cern.ch/centos-vault/8.3.2011/BaseOS/x86_64/os
