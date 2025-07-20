@@ -55,7 +55,7 @@ echo Booting Cluster Debian12 on sda...
 set base-url http://deb.debian.org/debian/dists/bookworm/main/installer-amd64/current/images/netboot/debian-installer/amd64
 set preseed-url ${pxe_url}/cluster/debian12/preseed_sda.cfg
 kernel ${base-url}/linux
-initrd ${pxe-url}/debian/images/12/initrd-fullfirmware.gz
+initrd ${deb12_url}/initrd-fullfirmware.gz
 imgargs linux auto=true url=${preseed-url} hostname=unassigned-hostname domain=unassigned-domain
 boot
 
