@@ -15,11 +15,12 @@ menu Linux Installers - Current Arch [ ${arch} ]
 item --gap Bios Installers
 item 1_debian12               Debian 12 (VM)
 item 2_cluster-debian12-sda  Cluster Debian 12 (sda)
-item 3_cluster-debian12-sdb  Cluster Debian 12 (sdb)
+item 3_cluster-debian12-sda-firmwares  Cluster Debian 12 (sda with firmwares)
+item 4_cluster-debian12-sdb  Cluster Debian 12 (sdb)
 item --gap EFI Installers
-item 4_efi-debian12          EFI Debian 12 (VM)
-item 5_cluster-debian12-sda-efi  Cluster Debian 12 EFI (sda)
-item 6_efi-centos8-dl360     EFI CentOS 8 DL360 Cloud
+item 5_efi-debian12          EFI Debian 12 (VM)
+item 6_cluster-debian12-sda-efi  Cluster Debian 12 EFI (sda)
+item 7_efi-centos8-dl360     EFI CentOS 8 DL360 Cloud
 item --gap
 item shell                   iPXE Shell
 item reboot                  Reboot
@@ -48,7 +49,17 @@ initrd ${base-url}/initrd.gz
 imgargs linux auto=true url=${preseed-url} hostname=unassigned-hostname domain=unassigned-domain
 boot
 
-:3_cluster-debian12-sdb
+:3_cluster-debian12-sda-firmwares
+imgfree
+echo Booting Cluster Debian12 on sda...
+set base-url http://deb.debian.org/debian/dists/bookworm/main/installer-amd64/current/images/netboot/debian-installer/amd64
+set preseed-url ${pxe_url}/cluster/debian12/preseed_sda.cfg
+kernel ${base-url}/linux
+initrd ${pxe-url}/debian/images/12/initrd-fullfirmware.gz
+imgargs linux auto=true url=${preseed-url} hostname=unassigned-hostname domain=unassigned-domain
+boot
+
+:4_cluster-debian12-sdb
 imgfree
 echo Booting Cluster Debian12 on sdb...
 set base-url http://deb.debian.org/debian/dists/bookworm/main/installer-amd64/current/images/netboot/debian-installer/amd64
@@ -58,7 +69,7 @@ initrd ${base-url}/initrd.gz
 imgargs linux auto=true url=${preseed-url} hostname=unassigned-hostname domain=unassigned-domain
 boot
 
-:4_efi-debian12
+:5_efi-debian12
 imgfree
 echo Booting Debian bookworm EFI installer...
 set base-url http://deb.debian.org/debian/dists/bookworm/main/installer-amd64/current/images/netboot/debian-installer/amd64
@@ -68,7 +79,7 @@ initrd ${base-url}/initrd.gz
 imgargs linux auto=true url=${preseed-url} hostname=unassigned-hostname domain=unassigned-domain
 boot
 
-:5_cluster-debian12-sda-efi
+:6_cluster-debian12-sda-efi
 imgfree
 echo Booting Cluster Debian12 on sda...
 set base-url http://deb.debian.org/debian/dists/bookworm/main/installer-amd64/current/images/netboot/debian-installer/amd64
@@ -78,7 +89,7 @@ initrd ${base-url}/initrd.gz
 imgargs linux auto=true url=${preseed-url} hostname=unassigned-hostname domain=unassigned-domain
 boot
 
-:6_efi-centos8-dl360
+:7_efi-centos8-dl360
 imgfree
 echo Booting CentOS 8.3 EFI installer for DL360...
 set base http://linuxsoft.cern.ch/centos-vault/8.3.2011/BaseOS/x86_64/os
