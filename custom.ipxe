@@ -7,7 +7,7 @@
 :custom
 clear custom_choice
 set pxe_url http://192.168.1.245:8095
-set deb12_url ${pxe_url}/debian/images/12/
+set deb12_url ${pxe_url}/debian/images/12
 set centos7_url ${pxe_url}/centos/images/7.9/
 set centos8_url ${pxe_url}/centos/images/8.3/
 
