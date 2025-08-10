@@ -12,14 +12,18 @@ set centos7_url ${pxe_url}/centos/images/7.9/
 set centos8_url ${pxe_url}/centos/images/8.3/
 
 menu Linux Installers - Current Arch [ ${arch} ]
-item --gap Bios Installers
+item --gap Debian 12 
 item 1_debian12                   Debian 12 (VM)
 item 2_cluster-debian12           Cluster Debian 12
-item --gap Fx2x8 Installers
-item 3_cluster-debian12_raid_soft Cluster Debian 12 Soft RAID
+
+item --gap Debian 13
+item 3_debian13                   Debian 13 (VM)
+item 4_cluster-debian13           Cluster Debian 13
+
 item --gap Cloud Installers
-item 4_efi-centos8-dl360          EFI CentOS 8 DL360 Cloud
-item --gap
+item 5_efi-centos8-dl360          EFI CentOS 8 DL360 Cloud
+
+item --gap Other Options
 item shell                        iPXE Shell
 item reboot                       Reboot
 
@@ -27,7 +31,7 @@ choose menu || goto custom_exit
 echo ${cls}
 goto ${menu} ||
 
-# Bios Installers
+# Debian 12
 :1_debian12
 imgfree
 echo Booting Debian bookworm installer...
@@ -48,19 +52,29 @@ initrd ${deb12_url}/initrd-fullfirmware.gz
 imgargs linux auto=true url=${preseed-url} hostname=unassigned-hostname domain=unassigned-domain
 boot
 
-# Fx2x8 Installers
-:3_cluster-debian12_raid_soft
+# Debian 13
+:3_debian13
 imgfree
-echo Booting Cluster Debian12...
-set base-url http://deb.debian.org/debian/dists/bookworm/main/installer-amd64/current/images/netboot/debian-installer/amd64
-set preseed-url ${pxe_url}/cluster/debian12/preseed_raid_soft.cfg
+echo Booting Debian 13 installer...
+set base-url http://deb.debian.org/debian/dists/trixie/main/installer-amd64/current/images/netboot/debian-installer/amd64
+set preseed-url ${pxe_url}/debian/preseed.cfg
 kernel ${base-url}/linux
 initrd ${deb12_url}/initrd-fullfirmware.gz
 imgargs linux auto=true url=${preseed-url} hostname=unassigned-hostname domain=unassigned-domain
-boot
+boot    
+
+:4_cluster-debian13
+imgfree
+echo Booting Cluster Debian 13...
+set base-url http://deb.debian.org/debian/dists/trixie/main/installer-amd64/current/images/netboot/debian-installer/amd64
+set preseed-url ${pxe_url}/cluster/debian13/preseed_sda.cfg
+kernel ${base-url}/linux
+initrd ${deb12_url}/initrd-fullfirmware.gz
+imgargs linux auto=true url=${preseed-url} hostname=unassigned-hostname domain=unassigned-domain
+boot    
 
 # Cloud Installers
-:4_efi-centos8-dl360
+:5_efi-centos8-dl360
 imgfree
 echo Booting CentOS 8.3 EFI installer for DL360...
 set base http://linuxsoft.cern.ch/centos-vault/8.3.2011/BaseOS/x86_64/os
