@@ -8,6 +8,7 @@
 clear custom_choice
 set pxe_url http://192.168.1.245:8095
 set deb12_url ${pxe_url}/debian/images/12
+set deb13_url ${pxe_url}/debian/images/13
 set centos7_url ${pxe_url}/centos/images/7.9/
 set centos8_url ${pxe_url}/centos/images/8.3/
 
@@ -59,7 +60,7 @@ echo Booting Debian 13 installer...
 set base-url http://deb.debian.org/debian/dists/trixie/main/installer-amd64/current/images/netboot/debian-installer/amd64
 set preseed-url ${pxe_url}/debian/preseed.cfg
 kernel ${base-url}/linux
-initrd ${deb12_url}/initrd-fullfirmware.gz
+initrd ${deb13_url}/initrd-fw.gz
 imgargs linux auto=true url=${preseed-url} hostname=unassigned-hostname domain=unassigned-domain
 boot    
 
@@ -69,7 +70,7 @@ echo Booting Cluster Debian 13...
 set base-url http://deb.debian.org/debian/dists/trixie/main/installer-amd64/current/images/netboot/debian-installer/amd64
 set preseed-url ${pxe_url}/cluster/debian13/preseed_sda.cfg
 kernel ${base-url}/linux
-initrd ${deb12_url}/initrd-fullfirmware.gz
+initrd ${deb13_url}/initrd-fw.gz
 imgargs linux auto=true url=${preseed-url} hostname=unassigned-hostname domain=unassigned-domain
 boot    
 
