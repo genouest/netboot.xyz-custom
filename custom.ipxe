@@ -60,7 +60,7 @@ echo Booting Debian 13 installer...
 set base-url http://deb.debian.org/debian/dists/trixie/main/installer-amd64/current/images/netboot/debian-installer/amd64
 set preseed-url ${pxe_url}/debian/preseed.cfg
 kernel ${base-url}/linux
-initrd ${deb13_url}/initrd-fw.gz
+initrd ${base-url}/initrd.gz
 imgargs linux auto=true url=${preseed-url} hostname=unassigned-hostname domain=unassigned-domain
 boot    
 
