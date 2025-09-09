@@ -39,7 +39,7 @@ echo Booting Debian bookworm installer...
 set base-url http://deb.debian.org/debian/dists/bookworm/main/installer-amd64/current/images/netboot/debian-installer/amd64
 set preseed-url ${pxe_url}/debian/preseed.cfg
 kernel ${base-url}/linux
-initrd ${deb12_url}/initrd-fullfirmware.gz
+initrd ${base-url}/initrd.gz
 imgargs linux auto=true url=${preseed-url} hostname=unassigned-hostname domain=unassigned-domain
 boot
 
