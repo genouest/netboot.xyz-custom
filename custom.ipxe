@@ -7,10 +7,10 @@
 :custom
 clear custom_choice
 set pxe_url http://192.168.1.245:8095
-set deb12_url ${pxe_url}/debian/images/12
-set deb13_url ${pxe_url}/debian/images/13
-set centos7_url ${pxe_url}/centos/images/7.9/
-set centos8_url ${pxe_url}/centos/images/8.3/
+set deb12_url ${pxe_url}/debian/images/12.12
+set deb13_url ${pxe_url}/debian/images/13.1
+set centos7_url ${pxe_url}/centos/images/7.9
+set centos8_url ${pxe_url}/centos/images/8.3
 
 menu Linux Installers - Current Arch [ ${arch} ]
 item --gap Debian 12 
@@ -43,13 +43,14 @@ initrd ${base-url}/initrd.gz
 imgargs linux auto=true url=${preseed-url} hostname=unassigned-hostname domain=unassigned-domain
 boot
 
-:2_cluster-debian12
+## with firmwares
+:2_cluster-debian12 
 imgfree
 echo Booting Cluster Debian12...
 set base-url http://deb.debian.org/debian/dists/bookworm/main/installer-amd64/current/images/netboot/debian-installer/amd64
 set preseed-url ${pxe_url}/cluster/debian12/preseed_sda.cfg
-kernel ${base-url}/linux
-initrd ${deb12_url}/initrd-fullfirmware.gz
+kernel ${deb12_url}/linux
+initrd ${deb12_url}/initrd.gz
 imgargs linux auto=true url=${preseed-url} hostname=unassigned-hostname domain=unassigned-domain
 boot
 
@@ -64,13 +65,14 @@ initrd ${base-url}/initrd.gz
 imgargs linux auto=true url=${preseed-url} hostname=unassigned-hostname domain=unassigned-domain
 boot    
 
+## witj firmwares
 :4_cluster-debian13
 imgfree
 echo Booting Cluster Debian 13...
 set base-url http://deb.debian.org/debian/dists/trixie/main/installer-amd64/current/images/netboot/debian-installer/amd64
 set preseed-url ${pxe_url}/cluster/debian13/preseed_sda.cfg
-kernel ${base-url}/linux
-initrd ${deb13_url}/initrd-fw.gz
+kernel ${deb13_url}/linux
+initrd ${deb13_url}/initrd.gz
 imgargs linux auto=true url=${preseed-url} hostname=unassigned-hostname domain=unassigned-domain
 boot    
 
